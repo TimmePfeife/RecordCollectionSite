@@ -5,47 +5,35 @@
     <h2>{{record.artist}}</h2>
     <p>{{record.type}}</p>
     <ul v-if="record.tracks && record.tracks.length">
-    <li v-for="track in record.tracks" v-bind:key="track._id">
-      {{track.title}}
-    </li>
+      <b-table striped :items="record.tracks" :fields="fields"></b-table>
     </ul>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
 
 export default {
   name: 'Record',
   data() {
     return {
-      record: {},
-      errors: [],
+      fields: ['number', 'title'],
     };
   },
-  mounted() {
-    console.log('created');
-    this.fetchData();
+  computed: {
+    record() {
+      return this.$store.getters.getRecord;
+    },
   },
   watch: {
-    $route: 'fetchData',
-  },
-  methods: {
-    fetchData() {
-      const url = `http://localhost:8888/library/records/${this.$route.params.id}`;
-      console.log(url);
-      axios.get(url)
-        .then((res) => {
-          this.record = res.data;
-        })
-        .catch((err) => {
-          this.errors.push(err);
-        });
+    '$route.params.id': () => {
+      this.$store.dispatch('LOAD_RECORD', this.$route.params.id);
     },
+  },
+  created() {
+    return this.$store.dispatch('LOAD_RECORD', this.$route.params.id);
   },
 };
 </script>
 
 <style scoped>
-
 </style>

@@ -1,6 +1,12 @@
 <template>
   <div id="app">
     <!-- Navigationsbar -->
+    <b-nav tabs fill>
+      <b-nav-item :to="{ name: 'Home' }">Records</b-nav-item>
+      <b-nav-item>Artists</b-nav-item>
+      <b-nav-item>Genres</b-nav-item>
+    </b-nav>
+
     <router-view/>
   </div>
 </template>
@@ -12,12 +18,4 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
