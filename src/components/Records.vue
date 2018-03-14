@@ -9,7 +9,7 @@
               class="mb-2"
               style="width: 250px; height: 250px;">
         <p class="card-text">
-          <b-link :to="{name: 'Record', params: {id: record.record_id}}">
+          <b-link :to="{name: 'Record', params: { id: record.record_id }}">
             <h1>{{record.title}}</h1>
           </b-link>
         <h2> {{record.artist}} </h2>
@@ -19,15 +19,17 @@
 </template>
 
 <script>
+import * as actionTypes from './../store/action-types';
+
 export default {
-  name: 'Home',
+  name: 'Records',
   computed: {
     records() {
       return this.$store.getters.getRecordList;
     },
   },
   created() {
-    this.$store.dispatch('LOAD_RECORDS');
+    this.$store.dispatch(actionTypes.LOAD_ALL_RECORDS);
   },
 };
 </script>
